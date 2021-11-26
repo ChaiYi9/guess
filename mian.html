@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Game</title>
+    <style>
+        *{
+            margin: 0;
+            font-family: Armalite Rifle;
+        }
+        body{
+            background-color: #263155;
+            height: 800px;
+        }
+        .main{
+            width: 604px;
+            height: 792px;
+            margin: 90px auto 0px;
+            position: relative;
+        }
+        
+        #text{
+            width: 225px;
+            height: 136px;
+            position: absolute;
+            left: 194PX;
+            top: 215PX;
+            background-color: RGB(0, 0, 0, 0);
+            color: #c3ce50;
+            font-size: 120px;
+            border: 0;
+            text-align: center
+            
+        }
+        #btn{
+            position: absolute;
+            left: 216px;
+            bottom: 22px;
+            size: 20px;
+        }
+        
+        #win{
+            display: none;
+        }
+        #lose{
+            display: none;
+        }
+        #main{
+            display: block;
+        }
+        
+        #p{
+            width: 540px;
+            height: 94px;
+            border: 3px #3b8f9e solid;
+            border-radius: 8px;
+            position: absolute;
+            background-color: #262640;
+            color: whitesmoke;
+            padding: 2px;
+            left: 28px;
+            top: 468px;
+        }
+        #sm{
+            font-size: 19px;
+            font-weight: bold;
+            font-family: italic;
+            position: absolute;
+            left: 153px;
+            top: 441px;
+            color: rgb(117, 117, 117);
+        }
+        #heart{
+            position: absolute;
+            right: 30px;
+            top: 35px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main" id="lose">
+        <img src="img/lose.png" alt="">
+    </div>
+    <div class="main" id="win">
+        <img src="img/win.png" >
+    </div>
+    <div class="main" id="main">
+        <div id="tbox">
+            <input type="number" id="text" placeholder="0">
+        </div>
+            <img src="img/Group 1.png" id="heart">
+            <p id="sm">Guess the number between 1 - 100</p>
+            <p id="p">Tips ：</p>
+        <img src="img/guess.png" id="btn">
+        <img src="img/game.png" id="img">
+    </div>
+    <script>
+        let ans = 36
+        let guessNum = document.getElementById("text")
+        let btn = document.getElementById("btn")
+        let tip = document.getElementById("p")
+        let heart = document.getElementById("heart")
+        let count = 1
+        let limit = 5
+        
+        btn.onmousedown = function(){
+            let guess = guessNum.value
+            if (count<limit){
+                if (guess == ans){
+                    document.getElementById("win").style.display = "block"
+                    document.getElementById("main").style.display = "none"
+                }else if(guess > 0 && guess < ans){
+                    tip.innerHTML += "<br>bigger than " + guessNum.value
+                    guessNum.value = ""
+                }else if(guess>ans && guess<101){
+                    tip.innerHTML += "<br>smaller than " + guessNum.value
+                    guessNum.value = ""
+                }else if(guess <= 0 || guess >= 101){
+                    alert("This number is invalid ")
+                    guessNum.value = ""
+                    count--
+                }
+                count++
+            }else if(count==limit){
+                if (guess == ans){
+                    document.getElementById("win").style.display = "block"
+                    document.getElementById("main").style.display = "none"
+                }else{
+                    document.getElementById("lose").style.display = "block"
+                    document.getElementById("main").style.display = "none"
+                }   
+            }
+            document.getElementById("heart").src = "img/Group "+count+".png"
+        }
+
+        
+    </script>
+</body>
+</html>
